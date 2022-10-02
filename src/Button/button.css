@@ -1,0 +1,10 @@
+.Button {
+    margin-top: 24px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    background: var(--primary-color);
+    border-radius: 4px;
+    color: var(--on-primary-contrast)
+}

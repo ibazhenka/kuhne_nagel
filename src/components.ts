@@ -13,15 +13,14 @@ export const Card = styled.div`
   border-radius: 4px;
 `;
 
-export const H1 = styled.h1`
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 22px;
-`;
-
 export const Subtitle = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
   color: var(--secondary-text-color);
+`;
+
+export const Divider = styled.hr`
+  height: 1px;
+  background-color: var(--divider-color);
 `;

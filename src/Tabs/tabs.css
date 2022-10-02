@@ -1,0 +1,15 @@
+.Tabs-container {
+    display: flex;
+    margin-top: 36px
+}
+
+.Tab {
+    padding: 16px 24px 14px;
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.Tab-active {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}

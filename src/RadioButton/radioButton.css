@@ -1,0 +1,16 @@
+.RadioButton {
+    cursor: pointer;
+}
+
+.RadioButton-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 32px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--secondary-text-color);
+    white-space: nowrap;
+    cursor: pointer;
+}

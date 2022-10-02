@@ -1,0 +1,10 @@
+.Chip {
+    width: max-content;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: var(--primary-color);
+    background: var(--primary-opacity-15);
+}
