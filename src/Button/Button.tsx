@@ -1,11 +1,13 @@
-import React, { ReactNode } from 'react';
+import React, { AnchorHTMLAttributes, ReactNode } from 'react';
 
-export function Button({ children }: {children: ReactNode}) {
+export function Button({ children, ...props }: {children: ReactNode} & AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
-    <button
+    <a
+      href={props.href}
+      target={props.target}
       className="Button"
       type="button"
     >{children}
-    </button>
+    </a>
   );
 }

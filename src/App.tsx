@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import products from './products.json';
 import { Card, Main, Subtitle, Divider } from './components';
 import { Tabs } from './Tabs/Tabs';
 import { Checkbox } from './Checkbox/Checkbox';
@@ -6,7 +7,20 @@ import { Chip } from './Chip/Chip';
 import { Button } from './Button/Button';
 import { RadioButton } from './RadioButton/RadioButton';
 
+const categoryList = Array.from(new Set(products.map((p) => p.category)));
+
+interface ProductProps {
+  productName: string,
+  tags: string[],
+  category: string,
+  manufacturerUrl: string,
+  description: string[],
+  option1: string | null,
+  option2: string | null
+}
+
 function App() {
+  const [activeItem, setActiveItem] = useState<ProductProps | undefined>(undefined);
   return (
     <Main>
       <section style={{ display: 'flex', gap: 16 }}>
@@ -45,8 +59,13 @@ function App() {
                 </h2>
                 <Divider />
                 <div className="Card-content">
-                  <div>
-                    <Checkbox label="Software Development" />
+                  <div style={{ display: 'flex', gap: 32 }}>
+                    {categoryList.map((category) => (
+                      <Checkbox
+                        key={category}
+                        label={category}
+                      />
+)) }
                   </div>
                   <input
                     type="search"
@@ -54,18 +73,27 @@ function App() {
                   />
                 </div>
               </Card>
-              <div>
-                <Card className="ResultItem-card">
-                  <div>
-                    <h2 className="Typography-h2">
-                      123
-                    </h2>
-                    <div style={{ marginTop: 24 }}>
-                      <Chip label="Tab" />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {products.map((p) => (
+                  <Card
+                    role="button"
+                    key={p.productName}
+                    className="ResultItem-card"
+                    onClick={() => {
+                      setActiveItem(p);
+                    }}
+                  >
+                    <div>
+                      <h2 className="Typography-h2">
+                        {p.productName}
+                      </h2>
+                      <div style={{ display: 'flex', marginTop: 24, gap: 8, flexWrap: 'wrap' }}>
+                        {p.tags.map((tag) => <Chip key={tag} label={tag} />)}
+                      </div>
                     </div>
-                  </div>
-                  <Subtitle>some text</Subtitle>
-                </Card>
+                    <Subtitle style={{ minWidth: 100 }}>{p.category}</Subtitle>
+                  </Card>
+))}
               </div>
             </div>
             <aside style={{
@@ -79,28 +107,32 @@ function App() {
                 </h2>
                 <Divider />
                 <div style={{ padding: '42px 24px 24px' }}>
-                  <h2 className="Typography-h2">123
-                  </h2>
-                  <div style={{ marginTop: 24 }}>
-                    <Chip label="Tab" />
-                  </div>
-                  <Button>
-                    Go to Manufacturer
-                  </Button>
-                  <p className="Typography-body1" style={{ marginTop: 8 }}>
-                    Foxit Software PhantomPDF Business provides powerful PDF Editor capabilities to allow authors to
-                    update their documents themselves.
-                  </p>
-                  <RadioButton label="Option 1" />
-                  <p className="Typography-body1" style={{ marginTop: 8 }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.
-                  </p>
-                  <RadioButton label="Option 2" />
-                  <p className="Typography-body1" style={{ marginTop: 8 }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam.
-                  </p>
+                  {activeItem ? (
+                    <>
+                      <h2 className="Typography-h2">
+                        {activeItem.productName}
+                      </h2>
+                      <div style={{ display: 'flex', marginTop: 24, gap: 8, flexWrap: 'wrap' }}>
+                        {activeItem.tags.map((tag) => <Chip key={tag} label={tag} />)}
+                      </div>
+                      <Button href={activeItem.manufacturerUrl} target="_blank">
+                        Go to Manufacturer
+                      </Button>
+                      {activeItem.description.map((d) => (
+                        <p key={d} className="Typography-body1" style={{ marginTop: 8 }}>
+                          {d}
+                        </p>
+                      ))}
+                      <RadioButton label="Option 1" />
+                      <p className="Typography-body1" style={{ marginTop: 8 }}>
+                        {activeItem.option1}
+                      </p>
+                      <RadioButton label="Option 2" />
+                      <p className="Typography-body1" style={{ marginTop: 8 }}>
+                        {activeItem.option2}
+                      </p>
+                    </>
+) : 'Please, choose an item to get more info'}
                 </div>
               </Card>
             </aside>
