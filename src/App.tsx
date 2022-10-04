@@ -7,7 +7,8 @@ import { Chip } from './Chip/Chip';
 import { Button } from './Button/Button';
 import { RadioButton } from './RadioButton/RadioButton';
 
-const categoryList = Array.from(new Set(products.map((p) => p.category)));
+const categoryList = Array.from(new Set(products.map((p) => p.category)))
+  .map((category) => ({ value: category, active: false }));
 
 interface ProductProps {
   productName: string,
@@ -19,8 +20,28 @@ interface ProductProps {
   option2: string | null
 }
 
+interface FilterValuesProps {
+  active: boolean,
+  value: string,
+}
+
 function App() {
+  const [filteredProductList, setFilteredProductList] = useState<ProductProps[]>(products);
   const [activeItem, setActiveItem] = useState<ProductProps | undefined>(undefined);
+  const [categories, setCategories] = useState<FilterValuesProps[]>(categoryList);
+
+  const handleCheckboxChange = (category: string) => {
+    const filteredByCategories = categories
+      .map((cat) => cat.value === category ? { ...cat, active: !cat.active } : cat);
+    setCategories(filteredByCategories);
+    const filteredCategories = filteredByCategories
+      .filter((cat) => cat.active)
+      .map((x) => x.value);
+    const filteredProducts = products
+      .filter((product) => filteredCategories.includes(product.category));
+    setFilteredProductList(filteredCategories.length > 0 ? filteredProducts : products);
+  };
+
   return (
     <Main>
       <section style={{ display: 'flex', gap: 16 }}>
@@ -60,10 +81,12 @@ function App() {
                 <Divider />
                 <div className="Card-content">
                   <div style={{ display: 'flex', gap: 32 }}>
-                    {categoryList.map((category) => (
+                    {categories.map((category) => (
                       <Checkbox
-                        key={category}
-                        label={category}
+                        key={category.value}
+                        label={category.value}
+                        checked={category.active}
+                        onChange={() => handleCheckboxChange(category.value)}
                       />
 )) }
                   </div>
@@ -74,7 +97,7 @@ function App() {
                 </div>
               </Card>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {products.map((p) => (
+                {filteredProductList.map((p) => (
                   <Card
                     role="button"
                     key={p.productName}
