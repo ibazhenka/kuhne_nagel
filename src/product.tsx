@@ -1,4 +1,4 @@
-export interface ProductProps {
+export interface Product {
   productName: string,
   tags: string[],
   category: string,

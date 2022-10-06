@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Card, Divider } from '../components';
 import { Chip } from '../Chip/Chip';
 import { RadioButton } from '../RadioButton/RadioButton';
 import { Button } from '../Button/Button';
-import { ProductProps } from '../product-props';
+import { Product } from '../product';
 
-export function ProductInfo({ product }: {product: ProductProps | undefined}) {
+export function ProductInfo({ product, style }: {product: Product | undefined, style: CSSProperties}) {
   return (
-    <Card>
+    <Card style={style}>
       <h2 className="Typography-h2 Card-title">
         Product Details
       </h2>

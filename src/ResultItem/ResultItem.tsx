@@ -2,11 +2,11 @@ import React from 'react';
 import clsx from 'clsx';
 import { Card, Subtitle } from '../components';
 import { Chip } from '../Chip/Chip';
-import { ProductProps } from '../product-props';
+import { Product } from '../product';
 
 export function ResultItem({ product, activeItem, setActiveItem }:
                              {
-                               product: ProductProps,
+                               product: Product,
                                activeItem: string | undefined,
                                setActiveItem: () => void
                              }) {

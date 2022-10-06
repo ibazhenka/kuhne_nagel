@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import products from './products.json';
 import { Card, Main, Divider } from './components';
 import { Tabs } from './Tabs/Tabs';
 import { Checkbox } from './Checkbox/Checkbox';
 import { ProductInfo } from './ProductInfo/ProductInfo';
 import { ResultItem } from './ResultItem/ResultItem';
-import { ProductProps } from './product-props';
+import { Product } from './product';
 
 const categoryList = Array.from(new Set(products.map((p) => p.category)))
   .map((category) => ({ value: category, active: false }));
@@ -15,23 +15,52 @@ interface FilterValuesProps {
   value: string,
 }
 
+async function loadProducts(searchText: string, categories: FilterValuesProps[]): Promise<Product[]> {
+  await new Promise((r) => {
+    setTimeout(r, 1000);
+  });
+  const normalizedSearchText = searchText.toLocaleLowerCase();
+  const filteredByText = products.filter((p) => p.productName.toLocaleLowerCase().includes(normalizedSearchText));
+
+  const filteredCategories = categories
+    .filter((cat) => cat.active)
+    .map((x) => x.value);
+  if (filteredCategories.length === 0) {
+    return filteredByText;
+  }
+  return filteredByText.filter((p) => filteredCategories.includes(p.category));
+}
+
 function App() {
-  const [activeItem, setActiveItem] = useState<ProductProps | undefined>(undefined);
+  const [activeItem, setActiveItem] = useState<Product | undefined>(undefined);
   const [categories, setCategories] = useState<FilterValuesProps[]>(categoryList);
   const [search, setSearch] = useState('');
-
+  const [productList, setProductList] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const handleCheckboxChange = (category: string) => {
     const filteredByCategories = categories
       .map((cat) => cat.value === category ? { ...cat, active: !cat.active } : cat);
     setCategories(filteredByCategories);
   };
 
-  const filteredByText = products.filter((p) => p.productName.toLocaleLowerCase().includes(search));
-
-  const filteredCategories = categories
-    .filter((cat) => cat.active)
-    .map((x) => x.value);
-  const filteredProducts = filteredCategories.length > 0 ? filteredByText.filter((p) => filteredCategories.includes(p.category)) : filteredByText;
+  useEffect(() => {
+    setIsLoading(true);
+    let isCanceled = false;
+    loadProducts(search, categories).then((list) => {
+      if (!isCanceled) {
+        setActiveItem(undefined);
+        setProductList(list);
+        setIsLoading(false);
+      }
+    }).catch(() => {
+        setActiveItem(undefined);
+        setProductList([]);
+        setIsLoading(false);
+        alert('Error');
+      }
+    );
+    return () => { isCanceled = true; };
+  }, [search, categories]);
 
   return (
     <Main>
@@ -71,19 +100,20 @@ function App() {
                 />
               </div>
             </Card>
-            <div className="ResultList-container">
-              {filteredProducts.map((p) => (
+            <div className="ResultList-container" style={{ opacity: isLoading ? 0.5 : 1 }}>
+              {productList.map((p) => (
                 <ResultItem
                   key={p.productName}
                   activeItem={activeItem?.productName}
                   setActiveItem={() => setActiveItem(p)}
                   product={p}
                 />
-))}
+                ))}
+
             </div>
           </div>
           <aside className="ProductInfo-container">
-            <ProductInfo product={activeItem} />
+            {productList.length > 0 && <ProductInfo product={activeItem} style={{ opacity: isLoading ? 0.5 : 1 }} />}
           </aside>
         </div>
       </section>

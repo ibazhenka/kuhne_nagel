@@ -9,5 +9,5 @@
 @import 'RadioButton/radioButton.css';
 @import 'styles/card.css';
 @import 'styles/search.css';
-@import 'styles/result-item.css';
+@import 'ResultItem/result-item.css';
 @import 'App.css';

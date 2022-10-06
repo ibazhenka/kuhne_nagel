@@ -1,12 +1,11 @@
-.ProductInfo-container {
-    width: 320px;
-    flex-shrink: 0;
+.ResultItem-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px 14px 24px;
+    cursor: pointer;
 }
 
-.ProductInfo-content {
-    padding: 42px 24px 24px;
-}
-
-.ProductInfo-text {
-    margin-top: 8px;
+.ResultItem-active {
+    border-color: var(--primary-color) !important;
 }

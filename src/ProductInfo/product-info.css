@@ -1,6 +1,9 @@
 .ProductInfo-container {
-    width: 320px;
+    position: sticky;
+    top: 24px;
     flex-shrink: 0;
+    width: 320px;
+    height: fit-content;
 }
 
 .ProductInfo-content {
