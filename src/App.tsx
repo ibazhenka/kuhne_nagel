@@ -26,21 +26,22 @@ interface FilterValuesProps {
 }
 
 function App() {
-  const [filteredProductList, setFilteredProductList] = useState<ProductProps[]>(products);
   const [activeItem, setActiveItem] = useState<ProductProps | undefined>(undefined);
   const [categories, setCategories] = useState<FilterValuesProps[]>(categoryList);
+  const [search, setSearch] = useState('');
 
   const handleCheckboxChange = (category: string) => {
     const filteredByCategories = categories
       .map((cat) => cat.value === category ? { ...cat, active: !cat.active } : cat);
     setCategories(filteredByCategories);
-    const filteredCategories = filteredByCategories
-      .filter((cat) => cat.active)
-      .map((x) => x.value);
-    const filteredProducts = products
-      .filter((product) => filteredCategories.includes(product.category));
-    setFilteredProductList(filteredCategories.length > 0 ? filteredProducts : products);
   };
+
+  const filteredByText = products.filter((p) => p.productName.toLocaleLowerCase().includes(search));
+
+  const filteredCategories = categories
+    .filter((cat) => cat.active)
+    .map((x) => x.value);
+  const filteredProducts = filteredCategories.length > 0 ? filteredByText.filter((p) => filteredCategories.includes(p.category)) : filteredByText;
 
   return (
     <Main>
@@ -91,13 +92,16 @@ function App() {
 )) }
                   </div>
                   <input
+                    onChange={(e) => {
+                      setSearch(e.target.value.toLocaleLowerCase());
+                    }}
                     type="search"
                     className="Search-input"
                   />
                 </div>
               </Card>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {filteredProductList.map((p) => (
+                {filteredProducts.map((p) => (
                   <Card
                     role="button"
                     key={p.productName}
