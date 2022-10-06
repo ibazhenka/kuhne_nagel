@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 
 export const Main = styled.main`
+  display: flex;
   height: 100%;
   min-height: 100vh;
   padding: 64px 48px;
   background: var(--secondary-background);
+  gap: 16px;
 `;
 
 export const Card = styled.div`
@@ -14,6 +16,7 @@ export const Card = styled.div`
 `;
 
 export const Subtitle = styled.p`
+  min-width: 100px;
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;

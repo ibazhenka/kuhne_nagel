@@ -1,0 +1,66 @@
+.Plug {
+    width: 320px;
+    max-width: 100%;
+}
+
+.General-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    min-width: 1024px;
+}
+
+.Header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.Header-subtitle {
+    color: var(--secondary-text-color);
+}
+
+.Data-container {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.Searching-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+}
+
+.Checkboxes-container {
+    display: flex;
+    gap: 32px;
+}
+
+.SearchingResult-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.Chip-container {
+    display: flex;
+    margin-top: 24px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ProductInfo-container {
+    width: 320px;
+    flex-shrink: 0;
+}
+
+.ProductInfo-content {
+    padding: 42px 24px 24px;
+}
+
+.ProductInfo-text {
+    margin-top: 8px;
+}
