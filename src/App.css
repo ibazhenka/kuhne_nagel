@@ -55,13 +55,13 @@
 .Button-scrollToTop {
     position: fixed;
     bottom: 24px;
-    left: 24px;
+    left: 50%;
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: var(--secondary-text-color);
     opacity: 0.25;
     z-index: 1;
+    transform: translateX(-50%);
     transition: opacity 0.15s ease-in-out;
     cursor: pointer;
 }

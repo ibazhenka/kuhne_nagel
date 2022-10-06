@@ -103,13 +103,16 @@ function App() {
                     />
                   ))}
                 </div>
-                <input
-                  onChange={(e) => {
+                <div className="Search-input-container">
+                  <img src="./search.svg" alt="search" className="Search-icon" />
+                  <input
+                    onChange={(e) => {
                     setSearch(e.target.value.toLocaleLowerCase());
                   }}
-                  type="search"
-                  className="Search-input"
-                />
+                    type="search"
+                    className="Search-input"
+                  />
+                </div>
               </div>
             </Card>
             <div className="ResultList-container" style={{ opacity: isLoading ? 0.5 : 1 }}>
@@ -133,7 +136,8 @@ function App() {
         type="button"
         className="Button-scrollToTop"
         onClick={handlerScrollUp}
-      >^
+      >
+        <img src="./arrow-top.svg" alt="arrow" />
       </button>
     </Main>
   );
