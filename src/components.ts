@@ -7,6 +7,7 @@ export const Main = styled.main`
   padding: 64px 48px;
   background: var(--secondary-background);
   gap: 16px;
+  box-sizing: border-box;
 `;
 
 export const Card = styled.div`
