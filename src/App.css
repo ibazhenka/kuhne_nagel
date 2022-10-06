@@ -51,3 +51,21 @@
     gap: 8px;
     flex-wrap: wrap;
 }
+
+.Button-scrollToTop {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--secondary-text-color);
+    opacity: 0.25;
+    z-index: 1;
+    transition: opacity 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.Button-scrollToTop:hover {
+    opacity: 1;
+}

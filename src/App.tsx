@@ -59,8 +59,20 @@ function App() {
         alert('Error');
       }
     );
-    return () => { isCanceled = true; };
+    return () => {
+      isCanceled = true;
+    };
   }, [search, categories]);
+
+  const handlerScrollUp = () => {
+    if (document.documentElement.scrollTop > 0) {
+      window.scrollBy({
+        top: -document.documentElement.scrollTop,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <Main>
@@ -89,12 +101,12 @@ function App() {
                       checked={category.active}
                       onChange={() => handleCheckboxChange(category.value)}
                     />
-)) }
+                  ))}
                 </div>
                 <input
                   onChange={(e) => {
-                      setSearch(e.target.value.toLocaleLowerCase());
-                    }}
+                    setSearch(e.target.value.toLocaleLowerCase());
+                  }}
                   type="search"
                   className="Search-input"
                 />
@@ -108,7 +120,7 @@ function App() {
                   setActiveItem={() => setActiveItem(p)}
                   product={p}
                 />
-                ))}
+              ))}
 
             </div>
           </div>
@@ -117,6 +129,12 @@ function App() {
           </aside>
         </div>
       </section>
+      <button
+        type="button"
+        className="Button-scrollToTop"
+        onClick={handlerScrollUp}
+      >^
+      </button>
     </Main>
   );
 }
