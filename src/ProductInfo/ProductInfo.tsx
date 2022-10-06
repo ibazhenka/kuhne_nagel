@@ -29,14 +29,16 @@ export function ProductInfo({ product, style }: {product: Product | undefined, s
                 {d}
               </p>
             ))}
-            <RadioButton label="Option 1" />
-            <p className="Typography-body1 ProductInfo-text">
-              {product.option1}
-            </p>
-            <RadioButton label="Option 2" />
-            <p className="Typography-body1 ProductInfo-text">
-              {product.option2}
-            </p>
+            <fieldset>
+              <RadioButton label="Option 1" checked />
+              <p className="Typography-body1 ProductInfo-text">
+                {product.option1}
+              </p>
+              <RadioButton label="Option 2" />
+              <p className="Typography-body1 ProductInfo-text">
+                {product.option2}
+              </p>
+            </fieldset>
           </>
         ) : <p className="Typography-body1">Please choose a product for more info</p>}
       </div>
