@@ -39,7 +39,7 @@
     gap: 32px;
 }
 
-.SearchingResult-container {
+.ResultList-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -50,17 +50,4 @@
     margin-top: 24px;
     gap: 8px;
     flex-wrap: wrap;
-}
-
-.ProductInfo-container {
-    width: 320px;
-    flex-shrink: 0;
-}
-
-.ProductInfo-content {
-    padding: 42px 24px 24px;
-}
-
-.ProductInfo-text {
-    margin-top: 8px;
 }

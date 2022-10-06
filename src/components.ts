@@ -11,6 +11,7 @@ export const Main = styled.main`
 
 export const Card = styled.div`
   background: var(--primary-background);
+  border: 1px solid var(--primary-background);
   box-shadow: var(--card-boxshadow);
   border-radius: 4px;
 `;

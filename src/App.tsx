@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 import products from './products.json';
-import { Card, Main, Subtitle, Divider } from './components';
+import { Card, Main, Divider } from './components';
 import { Tabs } from './Tabs/Tabs';
 import { Checkbox } from './Checkbox/Checkbox';
-import { Chip } from './Chip/Chip';
-import { Button } from './Button/Button';
-import { RadioButton } from './RadioButton/RadioButton';
+import { ProductInfo } from './ProductInfo/ProductInfo';
+import { ResultItem } from './ResultItem/ResultItem';
+import { ProductProps } from './product-props';
 
 const categoryList = Array.from(new Set(products.map((p) => p.category)))
   .map((category) => ({ value: category, active: false }));
-
-interface ProductProps {
-  productName: string,
-  tags: string[],
-  category: string,
-  manufacturerUrl: string,
-  description: string[],
-  option1: string | null,
-  option2: string | null
-}
 
 interface FilterValuesProps {
   active: boolean,
@@ -81,64 +71,19 @@ function App() {
                 />
               </div>
             </Card>
-            <div className="SearchingResult-container">
+            <div className="ResultList-container">
               {filteredProducts.map((p) => (
-                <Card
-                  role="button"
+                <ResultItem
                   key={p.productName}
-                  className="ResultItem-card"
-                  onClick={() => {
-                      setActiveItem(p);
-                    }}
-                >
-                  <div>
-                    <h2 className="Typography-h2">
-                      {p.productName}
-                    </h2>
-                    <div className="Chip-container">
-                      {p.tags.map((tag) => <Chip key={tag} label={tag} />)}
-                    </div>
-                  </div>
-                  <Subtitle>{p.category}</Subtitle>
-                </Card>
+                  activeItem={activeItem?.productName}
+                  setActiveItem={() => setActiveItem(p)}
+                  product={p}
+                />
 ))}
             </div>
           </div>
           <aside className="ProductInfo-container">
-            <Card>
-              <h2 className="Typography-h2 Card-title">
-                Product Details
-              </h2>
-              <Divider />
-              <div className="ProductInfo-content">
-                {activeItem ? (
-                  <>
-                    <h2 className="Typography-h2">
-                      {activeItem.productName}
-                    </h2>
-                    <div className="Chip-container">
-                      {activeItem.tags.map((tag) => <Chip key={tag} label={tag} />)}
-                    </div>
-                    <Button href={activeItem.manufacturerUrl} target="_blank">
-                      Go to Manufacturer
-                    </Button>
-                    {activeItem.description.map((d) => (
-                      <p key={d} className="Typography-body1 ProductInfo-text">
-                        {d}
-                      </p>
-                      ))}
-                    <RadioButton label="Option 1" />
-                    <p className="Typography-body1 ProductInfo-text">
-                      {activeItem.option1}
-                    </p>
-                    <RadioButton label="Option 2" />
-                    <p className="Typography-body1 ProductInfo-text">
-                      {activeItem.option2}
-                    </p>
-                  </>
-) : 'Please, choose an item to get more info'}
-              </div>
-            </Card>
+            <ProductInfo product={activeItem} />
           </aside>
         </div>
       </section>
