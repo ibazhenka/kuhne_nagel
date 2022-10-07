@@ -69,3 +69,8 @@
 .Button-scrollToTop:hover {
     opacity: 1;
 }
+
+.FeedbackMessage {
+    padding: 24px;
+    color: var(--secondary-text-color);
+}

@@ -116,14 +116,16 @@ function App() {
               </div>
             </Card>
             <div className="ResultList-container" style={{ opacity: isLoading ? 0.5 : 1 }}>
-              {productList.map((p) => (
-                <ResultItem
-                  key={p.productName}
-                  activeItem={activeItem?.productName}
-                  setActiveItem={() => setActiveItem(p)}
-                  product={p}
-                />
-              ))}
+              {productList.length > 0 ?
+                productList.map((p) => (
+                  <ResultItem
+                    key={p.productName}
+                    activeItem={activeItem?.productName}
+                    setActiveItem={() => setActiveItem(p)}
+                    product={p}
+                  />
+                ))
+                : <Card className="FeedbackMessage Typography-body1">Sorry, we don't have any data matching your request :(</Card>}
 
             </div>
           </div>

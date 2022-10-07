@@ -9,4 +9,10 @@
     border-radius: 4px;
     color: var(--on-primary-contrast);
     text-decoration: none;
+    transition: background 0.15s ease-in-out, boxShadow 0.15s ease-in-out;
+}
+
+.Button:hover {
+    background: var(--primary-darken-color);
+    box-shadow: var(--card-boxshadow);
 }
